@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>IdeaFactory</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<h1><%= link_to "Idea Factory", ideas_path %></h1>
+<div style="float: right;" >
+  <% if user_signed_in? %>
+    <%# current user is a method from Devise that gives you the user %>
+    <%# object for the currently logged in user %>
+    Welcome <%= current_user.name_display %>,
+    <%= link_to "Log Out", destroy_user_session_path, method: :delete %>
+  <% else %>
+    <%= link_to "Log In", new_user_session_path %> |
+    <%= link_to "Register", new_user_registration_path %>
+  <% end %>
+</div>
+
+<div>
+  <%= link_to "New", new_idea_path %>
+  <hr>
+  <%= flash[:notice] || flash[:alert] %>
+  <hr>
+  <%= yield %>
+</div>
+
+</body>
+</html>

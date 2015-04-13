@@ -1,0 +1,6 @@
+<% @ideas.each do |idea| %>
+  <strong><%= link_to idea.title, idea %></strong>
+  <br>
+  <%= idea.body %>
+  <hr>
+<% end %>

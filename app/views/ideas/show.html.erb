@@ -1,0 +1,33 @@
+<h1><%= @idea.title %></h1>
+<p><%= @idea.body %>
+<p>
+
+  Members:
+</p>
+<hr>
+<h2>Submit a Comment</h2>
+<% if @comment.errors.any? %>
+  <ul>
+    <% @comment.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<%= form_for @comment, url: idea_comments_path(@idea) do |f| %>
+  <%= f.text_area :body, placeholder: "Put your comment here" %>
+  <br>
+  <%= f.submit "Submit Comment" %> 
+<% end %>
+
+<h2>Comments</h2>
+<% @idea.comments.each do |comm| %>
+  <p>
+    <%= comm.body %>
+    <%= button_to "Delete", idea_comment_path(@idea, comm), method: :delete, data: {confirm: "Are you sure?"} %>
+    <% if comm.user.present? %>
+      <p>Comment by: <%= comm.user.name_display %></p>
+    <% end %>
+  </p>
+  <hr>
+<% end %>
